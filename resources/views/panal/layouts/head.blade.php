@@ -22,5 +22,5 @@
 
  <link href="{{ asset('css/datatable.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/custome-style.css') }}" rel="stylesheet" />
- <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 

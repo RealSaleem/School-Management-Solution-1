@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('type')->default('1');
-            $table->integer('is_school');
+            $table->integer('is_school')->default(0);
             $table->integer('is_staff')->default('0');
-            $table->string('shift')->default(null);
-            $table->string('image',200);
-            $table->integer('school_id')->default(null);
+            $table->string('shift')->nullable();
+            $table->string('image',200)->nullable();;
+            $table->integer('school_id')->nullable();
             $table->integer('active')->default('0');
             $table->integer('verified')->default('0');
             $table->string('email')->unique();

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Core\RequestExecutor;
 use Input;
 use Auth;
+use App\Models\School;
 
 class ImageController extends Controller
 {
@@ -102,33 +103,91 @@ class ImageController extends Controller
              $request->file('file')->move($destinationPath, $fileName); 
             }
         }
+
+
+
+           if($request->hasFile('file') || $request->hasFile('file')) {
+
+            $file = $request->file('image');
+            $path = $request->image->store('image');
+
+            $base_url = str_replace("public", "", \URL::to('/'));
+
+            $response = [
+                'name' => $file->getClientOriginalName(),
+                'path' => $base_url.'storage/app/public'.'/'.$path,//url(sprintf('storage/%s',$path)),
+                'size' => $file->getClientSize(),
+            ];
+
+
+
+            return response()->json($response);
+        }
     }
 
 
 
 
      public function uploadStudentImage(Request $request){
+      
 
-          if($request->hasFile('file')) {
+           if ($request->hasFile('image') || $request->hasFile('image')) {
 
-           // Upload path
-           $destinationPath = public_path('Image/'.Auth::user()->school->id.'/Students/');
-          
-           // Get file extension
-           $extension = $request->file('file')->getClientOriginalExtension();
+        
+                $destination_path = public_path('storage/images/'.Auth::user()->school->id.'/student');
+         
 
-           // Valid extensions
-           $validextensions = array("jpeg","jpg","png","pdf");
+            // $path = $request->image->store($destination_path, ['disk' => 'uploads']);
 
-           // Check extension
-           if(in_array(strtolower($extension), $validextensions)){
+            $file = $request->file('file');
 
-             // Rename file 
-             $fileName = $request->file('file')->getClientOriginalName().time() .'.' . $extension;
-             // Uploading file to given path
-             $request->file('file')->move($destinationPath, $fileName); 
-            }
+
+              $filePath = $request->file('image');
+              $fileName = $filePath->getClientOriginalName();
+             $path = $request->file('image')->store('images/'.Auth::user()->school->id.'/student');
+
+
+             $response = [
+                'name' => $filePath->getClientOriginalName(),
+                'path' => upload_image_path($path),//$base_url.'/uploads/'.$path,
+                'size' => $filePath->getSize(),
+            ];
+
+            return response()->json($response);
+
         }
+    
+    }
+
+         public function uploadSchoolLogo(Request $request){
+      
+
+           if ($request->hasFile('image') || $request->hasFile('image')) {
+
+        
+                $destination_path = public_path('storage/images/School');
+         
+
+            // $path = $request->image->store($destination_path, ['disk' => 'uploads']);
+
+            $file = $request->file('file');
+
+
+              $filePath = $request->file('image');
+              $fileName = $filePath->getClientOriginalName();
+             $path = $request->file('image')->store('images/'.Auth::user()->school->id.'/student');
+
+
+             $response = [
+                'name' => $filePath->getClientOriginalName(),
+                'path' => upload_image_path($path),//$base_url.'/uploads/'.$path,
+                'size' => $filePath->getSize(),
+            ];
+
+            return response()->json($response);
+
+        }
+    
     }
 
 
