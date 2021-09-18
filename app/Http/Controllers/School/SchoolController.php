@@ -30,7 +30,14 @@ class SchoolController extends Controller
      */
     public function create()
     {
-        return view('panal.schools.form');
+            $data =[
+            'is_edit' => false,
+            'title' => 'Add School',
+            'route' => route('schools.store'),
+            'button' => 'Submit',
+        ];
+
+        return view('panal.schools.form')->with(['data' => $data]);
     }
 
     /**
@@ -41,14 +48,7 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|confirmed',
-            'owner_name' => 'required|string',
-            'address' => 'required|string',
-            'cnic' => 'required|number',
-        ]);
+
         $schooluser = new User();
         $schooluser->name = $request->name;
         $schooluser->email = $request->email;
@@ -62,6 +62,9 @@ class SchoolController extends Controller
         $add_school = new School();
         $add_school->name = $request->name;
         $add_school->user_id = $schooluser->id;
+        if(isset($request->images) && $request->images != null){
+        $add_school->logo = $request->images[0]['path'];
+}
         $add_school->email = $request->email;
         $add_school->short_name = getStringCode($request->name);
         $add_school->owner_name = $request->owner_name;
@@ -76,9 +79,7 @@ class SchoolController extends Controller
         $add_school->save();
 
      
-
-
-        return redirect()->route('schools.index')->with('success','School has been added successfully');
+        return response()->json( ['IsValid' => true, 'Message'=>'School has been added successfully']);
         
     }
 
@@ -102,7 +103,20 @@ class SchoolController extends Controller
      */
     public function edit($id)
     {
-        //
+         $logo = [];
+            $school = School::find($id);
+            array_push($logo, ['name' => $school->name, 'url' => $school->logo, 'size' => 0]);
+       $data =[
+            'is_edit' => true,
+            'title' => 'Edit School',
+            'route' => route('schools.update',$school->id),
+            'button' => 'Update',
+            'school' => $school,
+            'logo' => $logo,
+        ];
+
+        return view('panal.schools.form')->with(['data' => $data]);
+
     }
 
     /**
@@ -114,7 +128,27 @@ class SchoolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      
+        $update_school =  School::find($id);
+        $update_school->name = $request->name;
+if(isset($request->images) && $request->images != null){
+        $update_school->logo = $request->images[0]['path'];
+}
+
+        $update_school->email = $request->email;
+        $update_school->short_name = getStringCode($request->name);
+        $update_school->owner_name = $request->owner_name;
+        $update_school->address = $request->address;
+        $update_school->owner_cnic_number = $request->cnic;
+        if($request->active){
+               $update_school->is_active = 1;
+        }
+        if($request->verified){
+        $update_school->is_verified = 1;
+        }
+        $update_school->save();
+        
+        return response()->json( ['IsValid' => true, 'Message'=>'School has been Updated successfully']);
     }
 
     /**
@@ -123,9 +157,14 @@ class SchoolController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+              $school = School::find($request->id);
+       $res = $school->delete();
+
+         if($res){
+             return response()->json( ['IsValid' => true, 'Message'=>'School has been deleted successfully']);
+         }
     }
 
 

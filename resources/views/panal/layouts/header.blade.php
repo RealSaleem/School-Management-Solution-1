@@ -4,6 +4,10 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+       <li >
+      <!--  <label>{{(Auth::user()->type == 1)? Auth::user()->school->name : Auth::user()->name}}</label> -->
+      <label style="padding: 7px 11px 0px 13px; font-size: 22px; font-family: cursive;">School Management Solution</label>
+      </li>
       
     </ul>
 

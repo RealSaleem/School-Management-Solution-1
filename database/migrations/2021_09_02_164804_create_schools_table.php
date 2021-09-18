@@ -14,17 +14,18 @@ class CreateSchoolsTable extends Migration
     public function up()
     {
         Schema::create('schools', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->increments('id')
+            $table->string('name',100);
             $table->string('short_name');
-            $table->string('address');
-             $table->string('email');
+            $table->string('address',300);
+            $table->string('email');
+            $table->text('logo')
             $table->integer('user_id');
-            $table->integer('school_id')->default(null);
-            $table->string('owner_name');
-            $table->integer('owner_cnic_number');
-            $table->integer('is_active');
-            $table->integer('is_verified');
+            $table->string('owner_name',100);
+            $table->bigInteger('owner_cnic_number')->nullable();
+             $table->bigInteger('mobile')->nullable();
+            $table->integer('is_active')->default(0);
+            $table->integer('is_verified')->default(0);
             $table->timestamps();
         });
     }

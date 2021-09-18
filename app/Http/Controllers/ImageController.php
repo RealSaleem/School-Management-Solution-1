@@ -134,7 +134,7 @@ class ImageController extends Controller
            if ($request->hasFile('image') || $request->hasFile('image')) {
 
         
-                $destination_path = public_path('storage/images/'.Auth::user()->school->id.'/student');
+                $destination_path = public_path('images/'.Auth::user()->school->id.'/student');
          
 
             // $path = $request->image->store($destination_path, ['disk' => 'uploads']);
@@ -144,7 +144,7 @@ class ImageController extends Controller
 
               $filePath = $request->file('image');
               $fileName = $filePath->getClientOriginalName();
-             $path = $request->file('image')->store('images/'.Auth::user()->school->id.'/student');
+             $path = $request->file('image')->store('storage/images/'.Auth::user()->school->id.'/student');
 
 
              $response = [
@@ -165,7 +165,7 @@ class ImageController extends Controller
            if ($request->hasFile('image') || $request->hasFile('image')) {
 
         
-                $destination_path = public_path('storage/images/School');
+                // $destination_path = public_path('storage/images/School');
          
 
             // $path = $request->image->store($destination_path, ['disk' => 'uploads']);
@@ -175,7 +175,9 @@ class ImageController extends Controller
 
               $filePath = $request->file('image');
               $fileName = $filePath->getClientOriginalName();
-             $path = $request->file('image')->store('images/'.Auth::user()->school->id.'/student');
+   
+             $path = $request->file('image')->store('storage/images/School');
+            
 
 
              $response = [

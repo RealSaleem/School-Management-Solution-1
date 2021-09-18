@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'has_school']], function () {
     Route::get('students/getPDF/{id}', [StudentsController::class, 'downloadPDF']);
 
     Route::resource('schools', SchoolController::class);
+    Route::post('schools/delete', [SchoolController::class, 'destroy'])->name('schools.delete');
     Route::post('schools/update', [SchoolController::class, 'updateStatus'])->name('schools.updateStatus');
     Route::get('/schools/class', [SchoolController::class, 'addClass'])->name('schools.add_class');
 

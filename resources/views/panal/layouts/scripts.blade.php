@@ -36,31 +36,31 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
-<!-- <script src="{{asset('assets/dropzone/min/dropzone.min.js')}}" type="text/javascript"></script> -->
+   <!-- <script src="{{asset('assets/dropzone/min/dropzone.min.js')}}" type="text/javascript"></script> -->
 
 <script>
-    $.widget.bridge('uibutton', $.ui.button)
+  $.widget.bridge('uibutton', $.ui.button)
 </script>
 
 
 
 
 
-<style type="text/css">
+ <style type="text/css">
 
-    .toast-success{
+   .toast-success{
         background-color: #20B611 !important;
-    }
-    .toast-error{
+   }
+   .toast-error{
         background-color: #FF4653  !important;
-    }
-</style>
+   }
+ </style>
 
+   
 
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".alert").slideDown(300).delay(5000).slideUp(300);
+    <script type="text/javascript">
+ $(document).ready(function(){
+          $(".alert").slideDown(300).delay(5000).slideUp(300);
     });
 
 
@@ -68,18 +68,18 @@
 
 
     toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "positionClass": "toast-bottom-left",
-        "onclick": null,
-        "showDuration": "1000",
-        "hideDuration": "1000",
-        "timeOut": "15000",
-        "extendedTimeOut": "0",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
+      "closeButton": true,
+      "debug": false,
+      "positionClass": "toast-bottom-left",
+      "onclick": null,
+      "showDuration": "1000",
+      "hideDuration": "1000",
+      "timeOut": "15000",
+      "extendedTimeOut": "0",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
     }
 
 
@@ -87,24 +87,24 @@
 
     $('#tc').hide();
 
-    function addTC(){
-        $('#tc').toggle();
-    };
+ function addTC(){
+$('#tc').toggle();
+  };
 
-    var doc = new jsPDF();
-    var specialElementHandlers = {
-        '#content': function (element, renderer) {
-            return true;
-        }
-    };
-    $('#cmd').click(function () {
-        doc.fromHTML($('#content').html(), 0, 0, {
-                'width': 100, // max width of content on PDF
-                'elementHandlers': specialElementHandlers
-            },
-            function(bla){doc.save('saveInCallback.pdf');});
-
-    });
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#content': function (element, renderer) {
+        return true;
+    }
+};
+  $('#cmd').click(function () {
+    doc.fromHTML($('#content').html(), 0, 0, {
+    'width': 100, // max width of content on PDF
+    'elementHandlers': specialElementHandlers
+},
+function(bla){doc.save('saveInCallback.pdf');});
+    
+});
 
 
 

@@ -6,7 +6,6 @@ P.dropzone, .dropzone * {
     min-height: 150px;
     border: 4px dotted dodgerblue;
     background: white;
-    border-radius: 3%;
 }
   .dropzone.dz-clickable {
     cursor: pointer; }
@@ -54,10 +53,7 @@ P.dropzone, .dropzone * {
       margin-right : 10%;
       cursor: pointer;
       border: none; 
-    text-decoration: none;
-    background-color: red;
-    color: white;
-    padding: 0px 5px;}
+    text-decoration: none;}
       .dropzone .dz-preview .dz-remove:hover {
         text-decoration: underline; }
     .dropzone .dz-preview:hover .dz-details {
