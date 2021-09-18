@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth', 'has_school']], function () {
     Route::post('/fee/setting/update', [FeeController::class, 'UpdateSetting'])->name('fee.setting.update');
 
 
-
+Route::get('fee/recept/{id}',[FeeController::class,'recept'])->name('fee.recept');
 
 
 

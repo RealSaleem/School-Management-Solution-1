@@ -102,7 +102,7 @@ class StudentsController extends Controller
 
         $addFee = new Fee();
         $addFee->student_id = $add_std->id;
-        $addFee->status = 1;
+        $addFee->status = 0;
         $addFee->school_id = Auth::user()->school->id;
         $addFee->month = date('M');
         $addFee->year = date('Y');

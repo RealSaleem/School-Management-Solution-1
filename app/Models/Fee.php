@@ -14,4 +14,7 @@ class Fee extends Model
     {
         return $this->belongsTo(FeeType::class,'fee_type_id');
     }
+    public function student(){
+        return $this->hasMany(Student::class,'id');
+    }
 }

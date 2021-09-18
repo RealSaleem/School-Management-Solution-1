@@ -28,6 +28,7 @@
                         <div class="col-md-12">
                             <form name="student_image" action="/file-upload" class="dropzone"
                                   id="my-awesome-dropzone" enctype="multipart/form-data">
+                                  @csrf
                                 <div class="fallback">
                                     <input name="file" type="file" style="display: none;">
                                 </div>
@@ -109,7 +110,7 @@
                         </div>
                         <div class="col-md-4">
                             <label>Religion :</label>
-                            <select class="form-control" name="religion">
+                            <select class="form-control" form="student-form" name="religion">
                                 <option  value="1">Islam</option>
                                 <option  value="2">Cristian</option>
                                 <option  value="3">Hindu</option>

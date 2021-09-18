@@ -18,6 +18,10 @@
     border-radius: 36% 35% 35% 35% !important;
     font-size: 10px!important;
     }
+
+    .status{
+        padding: 10px 20px;
+    }
 </style>
 
 
@@ -130,9 +134,11 @@ FeeTable = $('#fee_table').DataTable({
                  if($('#student_id').val() != ''){
                      d['student_id'] = $('#student_id').val();
                      d['action_type'] = 'get_record';
+                     d['_token'] = '{{ csrf_token() }}';
                  }else{
                      d['student_id'] = null;
                      d['action_type'] = 'view';
+                     d['_token'] = '{{ csrf_token() }}';
                  }
              }
          },
@@ -142,9 +148,9 @@ FeeTable = $('#fee_table').DataTable({
               render: function (column, row, data) 
                 {
                     if(data.status == 'Paid'){
-                        return ` <span class="badge badge-success badge-theme">${data.status}</span> `;
+                        return ` <span class="badge badge-success status">${data.status}</span> `;
                     }else{
-                        return `<span class="badge badge-danger badge-theme">${data.status}</span>`;
+                        return `<span class="badge badge-danger status">${data.status}</span>`;
                     }  
                 }
              },
@@ -157,7 +163,7 @@ FeeTable = $('#fee_table').DataTable({
                     if(data.status == 'Paid'){
                         return ` <span>${data.fee}</span> `;
                     }else{
-                        return ` <input type="text" name="fee"  class="form-control"> `;
+                        return ` <input type="text" name="fee"  class="form-control fee-${data.id}"> `;
                     }
                    
                 }
@@ -169,20 +175,20 @@ FeeTable = $('#fee_table').DataTable({
                     if(data.status == 'Paid'){
                         return ` <span>${data.recived_fee}</span> `;
                     }else{
-                        return ` <input type="text" name="recived_fee"  class="form-control"> `;
+                        return ` <input type="text" name="recived_fee"  class="form-control recived_fee-${data.id}"> `;
                     }  
                 }
              },
              { data: 'action',       sortable: false,
                 render: function (column, row, data) 
                 {
-                    if(data.status == 'Paid')
+              if(data.status == 'Paid')
                     {
-                    return ` <a href="javascript:;  " class="btn  btn-flat btn-gray text-right" >Print</a> `;
+                    return ` <a href="{{url('fee/recept/${data.id}')}}" class="btn  btn-flat btn-gray text-right" >Print</a> `;
                     }
                     else
                     {
-                    return ` <a href="javascript:;" class="btn  btn-flat btn-seagreen  text-right" >Submit</a> `;
+                    return ` <a href="javascript:;" class="btn  btn-flat btn-seagreen  text-right" onclick="submitFee(${data.id})" >Submit</a> `;
                     }
                 }
             },
@@ -216,6 +222,37 @@ $('#advance_fee_form').submit(function(){
         return false;
         
   }); 
+
+function submitFee(id){
+    let fee = $('.fee-'+id).val();
+    let recived_fee = $('.recived_fee-'+id).val();
+
+       if(confirm('Are you sure you want to Submit fee')){
+   
+             $.ajax({
+           url: "{{route('fee.submit')}}", 
+           type: "POST",
+           data: {
+            id:id,
+            fee:fee,
+            recived_fee:recived_fee,
+             _token: "{{ csrf_token() }}",
+          },
+       
+        success: function(response){
+         if(response.IsValid == true){
+           toastr.success(response.Message,'Success');
+           // window.location.reload();
+         }else{
+           toastr.error(response.Message,'Error');
+           // window.location.reload();
+         }
+       
+        }});
+         }
+
+
+}
 
 
 

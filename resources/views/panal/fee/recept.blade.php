@@ -11,7 +11,7 @@
       {{__('Print')}}
       </a>
       <a href="#" onclick="back()" class="m-b-xs w-auto btn-primary btn-sm ">
-      {{ __('website.back') }}
+      {{ __('Back') }}
       </a>
    </div>
 </div>

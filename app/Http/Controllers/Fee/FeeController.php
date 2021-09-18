@@ -131,4 +131,11 @@ if ($validator->fails())
      }
 
     }
+
+        public function recept($id)
+    {
+       
+        $recept =Fee::with('student')->find($id);
+        return view('panal.fee.recept')->with(compact('recept'));
+    }
 }
