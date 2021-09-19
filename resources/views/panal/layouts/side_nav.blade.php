@@ -119,20 +119,38 @@
                 <li class="nav-item">
                 <a href="{{route('role.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-               
                     <p>Roles</p>
-                 
                 </a>
               </li>
-            
+            </ul>
+          </li>
+           @endif
+                     @if(IsSchool())
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                Teacher Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+             
+              <li class="nav-item">
+                <a  href="{{route('staff.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Teachers</p>
+                </a>
+              </li>
             </ul>
           </li>
            @endif
          
+         
 
 
 
-  @if(IsSchool())
+      @if(IsSchool())
          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
@@ -153,6 +171,31 @@
                 <a href="{{route('fee.setting')}}" class="nav-link">
                  <i class="fas fa-cog"></i>
                   <p>Setting</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        @endif
+              @if(IsSchool())
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+               <i class="fas fa-user-graduate"></i>
+              <p>
+                Attendance Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('attendance.index')}}" class="nav-link">
+                 <i class="fas fa-user-graduate"></i>
+                  <p>Student</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{{route('students.index')}}" class="nav-link">
+                 <i class="fas fa-user-graduate"></i>
+                  <p>Staff</p>
                 </a>
               </li>
             </ul>

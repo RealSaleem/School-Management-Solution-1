@@ -21,7 +21,7 @@
                     </div>
                     <div class="col-md-6">
                       <label>Role Type :</label>
-                      <select class="form-control" name="role_type">
+                      <select class="form-control" name="type">
                         <option value="1">User</option>
                         <option value="2">Staff</option>
 

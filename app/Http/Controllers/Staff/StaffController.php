@@ -18,7 +18,7 @@ class StaffController extends Controller
 
     public function create()
     {
-          $roles = Role::where('role_type',2)->get();
+          $roles = Role::where('type',2)->get();
 
           $model =[
             'title' => 'Add Staff',

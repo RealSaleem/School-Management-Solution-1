@@ -49,8 +49,9 @@ class RolePermissionController extends Controller
         $role = Role::create(
             [
                 'name' => $request->name,
+                'type' => $request->type,
                 'school_id' => (Auth::user()->school->id != null) ? Auth::user()->school->id : null,
-                'display_name' => $request->name 
+                'display_name' => ucwords($request->name)  
             ]);
         $role->syncPermissions($request->permissions);
          return redirect()->route('role.index');
