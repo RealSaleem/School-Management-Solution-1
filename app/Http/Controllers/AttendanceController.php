@@ -6,19 +6,27 @@ use Illuminate\Http\Request;
 use App\Models\AttendanceModel;
 use App\ViewModels\Attendance\GetAttendanceModel;
 use App\Core\RequestExecutor;
+use Auth;
 class AttendanceController extends Controller
 {
 
 
     public function index()
     {
-        return view('panal.attendance.index');
+        $attendance =[];
+        return view('panal.attendance.index')->with(compact('attendance'));
     }
 
     public function getAttendance(Request $request)
     {
-        $response = GetAttendanceModel::load($request);
-         return response()->json($response);
+             $student_name = $request->student_name;
+             $class = $request->class;
+             $shift = $request->shift;
+        $attendance = AttendanceModel::whereHas('student',function ($q) use ($class) {
+                $q->where(['class'=>$class]);
+             })->where('school_id',Auth::user()->school->id)->get();
+
+         return view('panal.attendance.index')->with(compact('attendance'));
     }
   
 }
