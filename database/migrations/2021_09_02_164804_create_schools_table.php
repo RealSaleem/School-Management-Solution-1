@@ -14,12 +14,12 @@ class CreateSchoolsTable extends Migration
     public function up()
     {
         Schema::create('schools', function (Blueprint $table) {
-            $table->increments('id')
+            $table->increments('id');
             $table->string('name',100);
             $table->string('short_name');
             $table->string('address',300);
             $table->string('email');
-            $table->text('logo')
+            $table->text('logo');
             $table->integer('user_id');
             $table->string('owner_name',100);
             $table->bigInteger('owner_cnic_number')->nullable();
