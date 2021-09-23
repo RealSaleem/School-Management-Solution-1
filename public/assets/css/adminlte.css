@@ -12389,9 +12389,9 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   overflow-y: auto;
 }
 
-.layout-fixed .brand-link {
+/*.layout-fixed .brand-link {
   width: 250px;
-}
+}*/
 
 .layout-fixed .main-sidebar {
   background-color: dodgerblue !important;
@@ -52421,3 +52421,10 @@ a.text-muted:hover {
   color: #3f474e;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+
+
+/*Custome CSS*/
+
+
+

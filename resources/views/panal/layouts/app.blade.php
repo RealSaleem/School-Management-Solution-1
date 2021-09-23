@@ -9,7 +9,30 @@
    @include('panal.layouts.head')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<style type="text/css">
+  .layout-fixed .brand-link {
+  width: 250px !important;
+  background-color: dodgerblue !important;
+    color: white !important;
+    text-align: center !important;
+}
 
+
+.nav-sidebar .nav-item>.nav-link {
+          color: #696969c9 !important;
+}
+
+[class*=sidebar-light-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link {
+  color: dodgerblue !important;
+  }
+
+  h1,h2,h3,h4,h5{
+      color: #696969c9 !important;
+  }
+  label{
+      color: #696969c9 !important;
+  }
+</style>
 
 <div class="wrapper">
 

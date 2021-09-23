@@ -1,9 +1,14 @@
 
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+<!--   <aside class="main-sidebar sidebar-custome elevation-4">
+ -->    <!-- Brand Logo -->
+  <aside class="main-sidebar sidebar-light-secondary elevation-4">
+
+    <a href="{{route('panal.deshboard')}}" class="brand-link">
+      @php
+      $name = (Auth::user()->type == 1)? Auth::user()->school->name : Auth::user()->name;
+      @endphp
       
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">{{ucfirst($name)}}</span>
     </a>
 
     <!-- Sidebar -->
