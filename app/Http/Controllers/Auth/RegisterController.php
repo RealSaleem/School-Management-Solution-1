@@ -102,9 +102,6 @@ class RegisterController extends Controller
 
         // $data['email_token'] = base64_encode($data['email']);
 
-        $data['store_id'] = null;
-        $data['username'] = null;
-        $data['outlet_id'] = null;
 
         // try {
         //     $email = new EmailVerification((object)$data);
@@ -118,6 +115,7 @@ class RegisterController extends Controller
         // }
 
 
+
        $user = User::create([
             'name' => $data['name'],
             'username' => $data['name'],
@@ -125,7 +123,7 @@ class RegisterController extends Controller
             'is_school' => 0,
             'verified' => 1,
             'active' => 1,
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
 
         return isset($user) ? true : false;

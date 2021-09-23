@@ -20,18 +20,16 @@
    }
 </style>
 <div class="container">
-   <div class="row purchace-popup mt-2">
-      <div class="col-12 stretch-card grid-margin">
-         <div class="card card-secondary" style="padding: 24px;">
+   <div class="row ">
+      <div class="col-12 ">
+         <div class="card card-secondary" style="padding: 14px;">
             <form action="{{route('get.attendance')}}" method="post">
                @csrf
             <div class="row">
                <div class="col-md-3">
-                  <label>Student Name : </label>
-                  <input type="text" name="student_name" id="student_name" class="form-control">
+                  <input type="text" name="student_name" placeholder="Student Name" id="student_name" class="form-control">
                </div>
                <div class="col-md-3">
-                  <label>Class : </label>
                   <select name="class" class="form-control" id="class">
                      <option value="">Select Class</option>
                      <option value="1">1</option>
@@ -41,15 +39,14 @@
                   </select>
                </div>
                <div class="col-md-3">
-                  <label>Shift : </label>
                   <select name="shift" class="form-control " id="shift">
                      <option value="">Select Shift</option>
                      <option value="1">Morning</option>
                      <option value="2">Evening</option>
                   </select>
                </div>
-               <div class="col-md-3" style="padding-top: 7px;">
-                  <button type="submit"  id="get-attendance" class="btn btn-outline-dark col-md-12 mt-4">Search</button>
+               <div class="col-md-3">
+                  <button type="submit"  id="get-attendance" class="btn btn-outline-dark col-md-12">Search</button>
                </div>
             </div>
             </form>
@@ -58,18 +55,47 @@
    </div>
    <div class="row purchace-popup mt-2">
       <div class="col-12 stretch-card grid-margin">
-         <div class="card card-secondary" style="padding: 24px;">
+         <div class="card card-secondary" style="padding: 14px;">
+               <div class="row">
+               <div class="col-md-2" style="padding-top: 7px;">
+                  <div class="icheck-primary d-inline">
+                        <input type="checkbox" id="checkall">
+                        <label for="checkall"> Select All
+                        </label>
+                      </div>
+               </div>
+                   <div class="col-md-2">
+                  <select name="attendance" id="attendance" onchange="markLeave()" class="form-control form-control-sm">
+                     <option>Select Attendance</option>        
+                     <option value="1">Present</option>
+                     <option value="0">Absent</option>
+                     <option value="2">Leave</option>
+                  </select>
+               </div>
+               <div class="col-md-2">
+                  <select name="leave_type" id="leave_type" class="form-control form-control-sm d-none">
+                     <option>Select Leave Type</option>        
+                     <option value="1">Present</option>
+                     <option value="0">Absent</option>
+                     <option value="2">Leave</option>
+                  </select>
+               </div>
+                   <div class="col-md-3">
+                  <input type="text" name="detail" id="detail" class="form-control form-control-sm d-none">
+               </div>
+                   <div class="col-md-3 text-right">
+                     <button type="button"  class="btn btn-outline-info btn-sm ">Mark</button>
+                   </div>
+
+            </div>
+            <hr>
             <div class="row">
                <div class="col-md-12">
                   <table class="table table-striped table-bordered" id="attendance_table">
                      <thead>
                         <tr>
                            <th width="5%">
-                              <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="checkall">
-                        <label for="checkall">
-                        </label>
-                      </div>
+                              
                            </th>
                            <th width="30%">Student Name</th>
                            <th width="10%">Class</th>
@@ -85,7 +111,7 @@
                        <tr>
                           <td>
                                   <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="checkall-{{$at->id}}">
+                        <input type="checkbox" id="checkall-{{$at->id}}" class="attendance_row">
                         <label for="checkall-{{$at->id}}">
                         </label>
                       </div>
@@ -126,77 +152,50 @@
    @endsection @section('script')
    <script type="text/javascript">
 
+
+      $(function () {
+    $('#checkall').change(function () {
+        if ($(this).is(':checked')) {
+            $('.attendance_row').prop('checked', true).trigger('change');
+        } else {
+            $('.attendance_row').prop('checked', false).trigger('change');
+        }
+    });
+});
+
+
+
+
       $(document).ready(function () {
      $('#attendance_table').DataTable();
 
-      
-      
+
+      });
      
+
       
       
-      $('#advance_fee_form').submit(function(){ 
-      
-              $.ajax({
-                    url: $(this).attr('action'),
-                    type: $(this).attr('method'),
-                    data: $(this).serialize(),
-               success: function(response){
-                  if(response.IsValid == true){
-                  toastr.success(response.Message, 'Success');
-                  }else{
-                      toastr.error(response.Message, 'Error');
-                  }
-               }
-           });
-              return false;
-              
-        }); 
-      
-      function submitFee(id){
-          let fee = $('.fee-'+id).val();
-          let recived_fee = $('.recived_fee-'+id).val();
-      
-             if(confirm('Are you sure you want to Submit fee')){
-         
-                   $.ajax({
-                 url: "{{route('fee.submit')}}", 
-                 type: "POST",
-                 data: {
-                  id:id,
-                  fee:fee,
-                  recived_fee:recived_fee,
-                   _token: "{{ csrf_token() }}",
-                },
-             
-              success: function(response){
-               if(response.IsValid == true){
-                 toastr.success(response.Message,'Success');
-                 // window.location.reload();
-               }else{
-                 toastr.error(response.Message,'Error');
-                 // window.location.reload();
-               }
-             
-              }});
-               }
-      
-      
+          function markLeave(){
+         let value =$('#attendance').val();
+         if(value == 2){
+            $('#leave_type').removeClass('d-none');
+            $('#detail').removeClass('d-none');
+         }else{
+            $('#leave_type').addClass('d-none');
+            $('#detail').addClass('d-none');
+         }
       }
-      
-      
-      
-      
       
       
       
       
           
    </script>
-   <script type="text/javascript">
+<!--    <script type="text/javascript">
       $('.advance_fee').hide();
         $("#addvance_fee_check").change(function () {
       $(".advance_fee").toggle();
       });
-   </script>
+   </script> -->
    @endsection
 </div>
