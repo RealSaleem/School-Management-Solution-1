@@ -7,11 +7,13 @@
     color: white;
     }
 
+
+
   .btn-seagreen{
     padding: 3px 18px;
     background-color:  darkseagreen;
     color: white;
-       
+
     }
     .badge-theme{
     padding: 8px 13px 9px 12px !important;
@@ -68,7 +70,7 @@
                               <button type="submit" form="advance_fee_form" class="btn btn-primary btn-sm mt-4 ">Submit</button>
                             </div>
                         </div>
-                  
+
                 </div>
             </div>
         </div>
@@ -117,7 +119,7 @@
 
     @endsection @section('script')
     <script type="text/javascript">
-        
+
 
 $(document).ready(function () {
 
@@ -143,44 +145,44 @@ FeeTable = $('#fee_table').DataTable({
              }
          },
          "columns": [
-             { data: 'id',           sortable: false }, 
+             { data: 'id',           sortable: false },
              { data: 'status',       sortable: false,
-              render: function (column, row, data) 
+              render: function (column, row, data)
                 {
                     if(data.status == 'Paid'){
                         return ` <span class="badge badge-success status">${data.status}</span> `;
                     }else{
                         return `<span class="badge badge-danger status">${data.status}</span>`;
-                    }  
+                    }
                 }
              },
              { data: 'month',        sortable: false },
              { data: 'student_name', sortable: false },
              { data: 'fee_type',     sortable: false },
              { data: 'fee',          sortable: false,
-              render: function (column, row, data) 
+              render: function (column, row, data)
                 {
                     if(data.status == 'Paid'){
                         return ` <span>${data.fee}</span> `;
                     }else{
                         return ` <input type="text" name="fee"  class="form-control fee-${data.id}"> `;
                     }
-                   
+
                 }
              },
 
              { data: 'recived_fee',  sortable: false,
-              render: function (column, row, data) 
+              render: function (column, row, data)
                 {
                     if(data.status == 'Paid'){
                         return ` <span>${data.recived_fee}</span> `;
                     }else{
                         return ` <input type="text" name="recived_fee"  class="form-control recived_fee-${data.id}"> `;
-                    }  
+                    }
                 }
              },
              { data: 'action',       sortable: false,
-                render: function (column, row, data) 
+                render: function (column, row, data)
                 {
               if(data.status == 'Paid')
                     {
@@ -192,7 +194,7 @@ FeeTable = $('#fee_table').DataTable({
                     }
                 }
             },
-         
+
          ],
 
      });
@@ -205,7 +207,7 @@ $('#fee_get').click(function(){
 
 
 
-$('#advance_fee_form').submit(function(){ 
+$('#advance_fee_form').submit(function(){
 
         $.ajax({
               url: $(this).attr('action'),
@@ -220,17 +222,17 @@ $('#advance_fee_form').submit(function(){
          }
      });
         return false;
-        
-  }); 
+
+  });
 
 function submitFee(id){
     let fee = $('.fee-'+id).val();
     let recived_fee = $('.recived_fee-'+id).val();
 
        if(confirm('Are you sure you want to Submit fee')){
-   
+
              $.ajax({
-           url: "{{route('fee.submit')}}", 
+           url: "{{route('fee.submit')}}",
            type: "POST",
            data: {
             id:id,
@@ -238,7 +240,7 @@ function submitFee(id){
             recived_fee:recived_fee,
              _token: "{{ csrf_token() }}",
           },
-       
+
         success: function(response){
          if(response.IsValid == true){
            toastr.success(response.Message,'Success');
@@ -247,7 +249,7 @@ function submitFee(id){
            toastr.error(response.Message,'Error');
            // window.location.reload();
          }
-       
+
         }});
          }
 
